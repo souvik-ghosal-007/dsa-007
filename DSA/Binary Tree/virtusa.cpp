@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define int long long
+//#define int long long
 #define ForLoop(i, n) for(int i = 0; i < n; i++)
 
 int findXth(int x)
@@ -29,19 +29,21 @@ int findXth(int x)
 	return 0;
 }
 
-int f(int ind, vector<int> v, int target)
+int f(int ind, vector<int> v, int target, vector<vector<int>> &dp)
 {
 	if (ind == 0) return 1;
 	if (ind < 0) return 0;
 
-	int notPick = f(ind - 1, v, target);
+	if (dp[ind][target] != -1) return dp[ind][target];
+
+	int notPick = f(ind - 1, v, target, dp);
 	int pick = 0;
 	if (target >= v[ind])
 	{
-		pick = f(ind, v, target - v[ind]);
+		pick = f(ind, v, target - v[ind], dp);
 	}
 
-	return pick + notPick;
+	return dp[ind][target] = pick + notPick;
 }
 
 signed main()
@@ -66,7 +68,8 @@ signed main()
 	v.push_back(17);
 	v.push_back(19);
 
-	cout << f(v.size() - 1, v, target) << endl;
+	vector<vector<int>> dp(v.size(), vector<int>(target + 1, -1));
+	cout << f(v.size() - 1, v, target, dp) << endl;
 
 	return 0;
 }
