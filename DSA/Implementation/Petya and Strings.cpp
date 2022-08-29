@@ -17,33 +17,37 @@ signed main()
 	freopen("output.txt", "w", stdout);
 #endif
 
-	int t;
-	cin >> t;
+	string s1, s2;
+	cin >> s1;
+	cin >> s2;
 
-	while (t--)
+	for (int i = 0; i < s1.size(); i++)
 	{
-		int a, b;
-		cin >> a >> b;
-
-		for (int i = a; i <= b; i++)
-		{
-			int count = 0;
-			for (int j = 1; j * j <= i; j++)
-			{
-				if (i % j == 0)
-				{
-					count++;
-
-					if (j != (i / j)) count++;
-
-				}
-			}
-
-			if (count == 2) cout << i << endl;
-		}
-
-		cout << endl;
+		s1[i] = tolower(s1[i]);
+		s2[i] = tolower(s2[i]);
 	}
 
+	int n = s1.size();
+
+	int order = 0;
+
+	for (int i = n - 1; i >= 0; i--)
+	{
+		if (s1[i] < s2[i])
+		{
+			order = -1;
+			continue;
+		}
+
+		else if (s1[i] > s2[i])
+		{
+			order = 1;
+			continue;
+		}
+
+		else order = 0;
+	}
+
+	cout << order << endl;
 	return 0;
 }

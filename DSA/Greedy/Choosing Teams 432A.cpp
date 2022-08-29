@@ -17,33 +17,36 @@ signed main()
 	freopen("output.txt", "w", stdout);
 #endif
 
-	int t;
-	cin >> t;
+	int n, k;
+	cin >> n >> k;
 
-	while (t--)
+	int arr[n];
+
+	for (int i = 0; i < n; i++)
 	{
-		int a, b;
-		cin >> a >> b;
-
-		for (int i = a; i <= b; i++)
-		{
-			int count = 0;
-			for (int j = 1; j * j <= i; j++)
-			{
-				if (i % j == 0)
-				{
-					count++;
-
-					if (j != (i / j)) count++;
-
-				}
-			}
-
-			if (count == 2) cout << i << endl;
-		}
-
-		cout << endl;
+		cin >> arr[i];
 	}
+
+	sort(arr, arr + n);
+
+	int mem = 0;
+	int count = 0;
+
+	for (int i = 0; i < n; i++)
+	{
+		if (k + arr[i] <= 5) mem++;
+
+		if (mem == 3)
+		{
+			count++;
+			mem = 0;
+		}
+	}
+	cout << count << " ";
+	// for (auto i : arr)
+	// {
+	// 	cout << i << " ";
+	// }
 
 	return 0;
 }

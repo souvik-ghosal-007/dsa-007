@@ -22,28 +22,54 @@ signed main()
 
 	while (t--)
 	{
-		int a, b;
-		cin >> a >> b;
+		int a, b, c, d;
+		cin >> a >> b >> c >> d;
 
-		for (int i = a; i <= b; i++)
+		if (a == 0 || b == 0 || c == 0 || d == 0)
 		{
-			int count = 0;
-			for (int j = 1; j * j <= i; j++)
-			{
-				if (i % j == 0)
-				{
-					count++;
-
-					if (j != (i / j)) count++;
-
-				}
-			}
-
-			if (count == 2) cout << i << endl;
+			cout << 1 << endl;
+			continue;
 		}
 
-		cout << endl;
-	}
+		//reduce the fractions
+		int x = gcd(a, b);
+		int y = gcd(c, d);
 
+		a = a / x;
+		b = b / x;
+
+		c = c / y;
+		d = d / y;
+
+		int count = 0;
+
+		if (a != c || b != d)
+		{
+			int lcm1 = lcm(a, c);
+			int lcm2 = lcm(b, d);
+
+			if (a != lcm1)
+			{
+				count++;
+			}
+
+			if (c != lcm1)
+			{
+				count++;
+			}
+
+			if (b != lcm2)
+			{
+				count++;
+			}
+
+			if (d != lcm2)
+			{
+				count++;
+			}
+		}
+
+		cout << count << endl;
+	}
 	return 0;
 }
